@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffcccb;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 200px;
+        }
+        h1 {
+            color: #d63384;
+            font-size: 50px;
+            animation: fadeIn 5s ease-in-out;
+            display: none;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .hidden-message {
+            display: none;
+            font-size: 24px;
+            color: #d63384;
+            margin-top: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            animation: fadeIn 6s ease-in-out;
+            
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #c70039;
+        }
+        .gift-box {
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 50px auto;
+            position: relative;
+        }
+        .gift-box:hover
+        {
+            background-color: #c70039;
+        }
+        .lid {
+            width: 110px;
+            height: 20px;
+            background-color: darkgoldenrod;
+            position: absolute;
+            top: -10px;
+            left: -5px;
+            transition: transform 0.5s ease-in-out;
+        }
+        .open .lid {
+            transform: rotateX(180deg);
+        }
+        .balloons {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+        }
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background-color: red;
+            border-radius: 50%;
+            animation: float 5s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(1); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gift-box" onclick="openGift()">
+            🎁
+            <div class="lid"></div>
+        </div>
+        <h1 id="birthdayText">🎉 Happy Birthday Arati! 🎂</h1>
+        <p class="hidden-message" id="message">Wishing you a day filled with love and joy! 🎈🥳</p>
+    </div>
+    <div class="balloons" id="balloons"></div>
+    <audio id="birthdayMusic" src="happy-birthday-262163.mp3" preload="auto"></audio>
+    <script>
+        function openGift() {
+            let giftBox = document.querySelector(".gift-box");
+            giftBox.classList.add("open");
+            setTimeout(() => {
+                document.getElementById("birthdayText").style.display = "block";
+                document.getElementById("message").style.display = "block";
+                createBalloons(20);
+                playMusic();
+                
+            }, 500);
+        }
+
+        function createBalloons(count) {
+            const balloonContainer = document.getElementById("balloons");
+            balloonContainer.innerHTML = "";
+            for (let i = 0; i < count; i++) {
+                let balloon = document.createElement("div");
+                balloon.className = "balloon";
+                balloon.style.backgroundColor = getRandomColor();
+                balloon.style.left = Math.random() * 100 + "vw";
+                balloon.style.animationDuration = (Math.random() * 2 + 3) + "s";
+                balloonContainer.appendChild(balloon);
+            }
+        }
+
+        function getRandomColor() {
+            let colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function playMusic() {
+            let music = document.getElementById("birthdayMusic");
+            music.play();
+        }
+    </script>
+</body>
+</html>
